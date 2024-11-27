@@ -1,0 +1,5 @@
+# below you can list all the parameters you want to study
+# each entry should reference a template file in templates/
+# with jinja2 placeholders for the parameters you want to replace
+run.sh:
+  epochs: [2, 3, 4]
