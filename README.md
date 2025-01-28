@@ -1,8 +1,8 @@
 # neural-lam-experiments
 
-The aim of the tool (`neural-lam-experiments`) in this repo is to define a process for running a study of experiments with the `neural-lam` model against a set of predifined baseline experiments. The tool is designed to make it easy to run a study of training experiments with `neural-lam` and to compare the results of these experiments in a consistent way.
+The aim of the tool (`neural-lam-experiments`) in this repo is to define a process for running a study of experiments with [neural-lam](https://github.com/mllam/neural-lam) against a set of predefined baseline experiments. The tool is designed to make it easy to run a study of training experiments with `neural-lam` and to compare the results of these experiments in a consistent way.
 
-Specifically, `neural-lam-experiments` aims to define a process which allows us to **make reproducable experiments**. This means that the tool aims to enable you to detail 1) what software you used (including versions), 2) what data was used both in training and inference of the models you used, 3) what model architecture was used, 4) the training hyper parameters, 5) evaluation metrics and 6) how to recreate your plots.
+Specifically, `neural-lam-experiments` aims to define a process which allows you to **make reproducable experiments**. This means that the tool aims to enable you to detail 1) what software you used (including versions), 2) what data was used both in training and inference of the models you used, 3) what model architecture was used, 4) the training hyper parameters, 5) evaluation metrics and 6) how to recreate your plots.
 
 Once you have made a study that you wish to share you would create a branch, commit your changes and push your work to your fork of this repo. You can then share your experimental setup by sending a link to your branch to your colleagues 🚀.
 
@@ -17,7 +17,7 @@ To be clear about the process for doing scientific process that this repo detail
 ## Repo layout
 
 ```bash
-├── baseline-X0              # baseline experiment that is used for baselining your study
+├── baseline-X-v0.1.0         # baseline experiment that is used for baselining your study
 │   ├── config.yaml           # config file for the baseline experiment
 │   ├── danra.datastore.yaml  # datastore file for the baseline experiment
 │   └── run.sh                # run file for the baseline experiment
@@ -39,16 +39,19 @@ Once a given experiment has been run (baseline or study) then the directory will
 The folders with baseline experiments should follow the following naming convention:
 
 ```bash
-baseline-B0
-         │└── number denotes the version of the baseline experiment
-         └-── letter denotes what this baseline aims to capture about the model the number
+              ┌─── semantic version
+            ┌─┴─┐
+baseline-X-v0.1.0
+         │  └── number denotes the version of the baseline experiment
+         └-── letter denotes what kind of baseline this is, the "X"-series
+              is just for getting to know the neural-lam-experiments tool
 ```
 
 Over time we will develop more baseline experiments that capture different aspects of the model. And we will increment the version number as we improve the baseline experiment.
 
 **Exisiting baseline experiments**:
 
-- B-series: These are only used to allow people to become familiar with the `neural-lam-experiments` tool for running studies of experiments with `neural-lam`. The results are probably rubbish, but at least it runs quickly 😆.
+- X-series: These are only used to allow people to become familiar with the `neural-lam-experiments` tool for running studies of experiments with `neural-lam`. The results are probably rubbish, but at least it runs quickly 😆.
 
 ## How to use this tool
 
@@ -64,8 +67,8 @@ Over time we will develop more baseline experiments that capture different aspec
     pdm add hvplot
     ```
     The same environment will be used for all experiments in your study
-2. Delete any baseline experiments (e.g. `baseline-B0`) that are not relevant to your study
-3. Copy all the files from the baseline experiment (e.g. `baseline-B0`) that you will base the experiments in your study on to the `templates/` directory.
+2. Delete any baseline experiments (e.g. `baseline-X-v0.1.0`) that are not relevant to your study
+3. Copy all the files from the baseline experiment (e.g. `baseline-X-v0.1.0`) that you will base the experiments in your study on to the `templates/` directory.
 4. Rename any file to add the `.tpl` suffix (e.g. `run.sh` would become `run.sh.tpl`) that you wish to modify in a given experiment (e.g. the CLI run command `run.sh` or config file for neural-lam `config.yaml`) from the baseline experiment to the `templates/` directory.
 5. Modify `study_parameters.yaml` to define the experiments in your study. The first level of the yaml file refers to the file to modify (e.g. `run.sh` will use `run.sh.tpl` file in the `templates/` directory). Lists of values are used to define the different experiments in the study.
 6. Run `pdm run python generate_experiments.py` to create the experiments in the root directory. These will be generated from the parameters you set in `study_parameters.yaml` and files you put into `templates/`.

@@ -7,7 +7,7 @@ authors = [
 ]
 dependencies = [
     "jinja2>=3.1.4",
-    "neural-lam @ git+https://github.com/mllam/neural-lam@c1f706c29542d770ed49e910f8b9bd5caff1fdec",
+    "neural-lam @ git+https://github.com/leifdenby/neural-lam@c1f706c29542d770ed49e910f8b9bd5caff1fdec",
 ]
 requires-python = ">=3.10"
 readme = "README.md"
